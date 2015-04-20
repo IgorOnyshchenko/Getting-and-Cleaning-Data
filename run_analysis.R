@@ -1,4 +1,6 @@
 # Read the files
+path<-file.path(getwd(),"UCI HAR Dataset")
+
 dtTrain<-fread(file.path(path,"train","subject_train.txt"))
 dtTest<-fread(file.path(path,"test","subject_test.txt"))
 
