@@ -60,14 +60,12 @@ y<-matrix(seq(1,n),nrow=n)
 x<-matrix(c(grepl("-X",dt$feature),grepl("-Y",dt$feature),grepl("-Z",dt$feature)),ncol=nrow(y))
 dt$featAxis<-factor(x%*%y, labels=c(NA, "X", "Y", "Z"))
 
-# check features
- r1<-nrow(dt[, .N, by=c("feature")])
- r2<-nrow(dt[, .N, by=c("featDomain","featAcceleration","featInstrument","featJerk","featMag","featVar","featAxis")])
- r1==r2
-
 # Create a tidy data set
 setkey(dt,subject,activity,featDomain, featAcceleration, featInstrument, featJerk, featMag, featVar, featAxis)
 dtTidy<-dt[,list(count= .N, average=mean(value)),by=key(dt)]
 
+# Write Tidy data
 write.table(dtTidy,file.path(path,"Tidy.txt"),row.name=FALSE)
 
+# Return Tidy data
+dtTidy
